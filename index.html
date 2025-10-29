@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown — July 11, 2026</title>
+  <style>
+    :root {
+      --accent: #00d4ff;
+      --text: #fff;
+      --muted: rgba(255,255,255,0.7);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: url('images/bg-1.jpg') center/cover no-repeat;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: var(--text);
+      text-align: center;
+      position: relative;
+    }
+
+    /* 🔹 Background slideshow layer */
+    .slideshow {
+      position: fixed;
+      top: 0; 
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+      filter: brightness(0.6);
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .countdown {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .unit {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .unit:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .num {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .label {
+      font-size: 1rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    footer {
+      margin-top: 25px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5rem; }
+      .num { font-size: 2.5rem; }
+      .countdown { gap: 12px; }
+      .unit { padding: 18px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 🔹 Slideshow background -->
+  <div class="slideshow" id="slideshow"></div>
+
+  <h1>Countdown to July 11, 2026</h1>
+  <div class="countdown">
+    <div class="unit">
+      <div id="days" class="num">0</div>
+      <div class="label">Days</div>
+    </div>
+    <div class="unit">
+      <div id="hours" class="num">0</div>
+      <div class="label">Hours</div>
+    </div>
+    <div class="unit">
+      <div id="minutes" class="num">0</div>
+      <div class="label">Minutes</div>
+    </div>
+    <div class="unit">
+      <div id="seconds" class="num">0</div>
+      <div class="label">Seconds</div>
+    </div>
+  </div>
+  <footer id="status">Counting down...</footer>
+
+  <script>
+    // ✅ Countdown logic (mobile-safe)
+    const targetDate = new Date(2026, 6, 11, 0, 0, 0); // July = 6
+
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const statusEl = document.getElementById('status');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        daysEl.textContent = '0';
+        hoursEl.textContent = '0';
+        minutesEl.textContent = '0';
+        secondsEl.textContent = '0';
+        statusEl.textContent = '🎉 The day has arrived!';
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      daysEl.textContent = days;
+      hoursEl.textContent = String(hours).padStart(2, '0');
+      minutesEl.textContent = String(minutes).padStart(2, '0');
+      secondsEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    const timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 🔹 Background slideshow logic
+    // const slideshow = document.getElementById('slideshow');
+
+    // // Add your 10 image URLs or file names here
+    // const images = [
+    //   "images/bg-1.JPG",
+    //   "images/bg-2.jpg",
+    //   "images/bg-3.JPG",
+    //   "images/bg-4.jpg",
+    //   "images/bg-5.jpg",
+    //   "images/bg-6.JPG",
+    //   "images/bg-7.jpg"
+    // ];
+
+    // let current = 0;
+
+    // function changeBackground() {
+    //   slideshow.style.backgroundImage = `url('${images[current]}')`;
+    //   current = (current + 1) % images.length;
+    // }
+
+    // changeBackground(); // Initial image
+    // setInterval(changeBackground, 5000); // Change every 5 seconds
+
+    const slideshow = document.getElementById('slideshow');
+
+const images = [
+  "images/bg-01.JPG",
+  "images/bg-02.jpg",
+  "images/bg-03.JPG",
+  "images/bg-04.jpg",
+  "images/bg-05.jpg",
+  "images/bg-06.JPG",
+  "images/bg-07.jpg"
+];
+
+let current = 0;
+
+function changeBackground() {
+  slideshow.style.backgroundImage = `url('${images[current]}')`;
+  current = (current + 1) % images.length;
+}
+
+changeBackground(); // first image
+setInterval(changeBackground, 5000); 
+  </script>
+</body>
+</html>
